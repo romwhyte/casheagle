@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>949</width>
+    <height>840</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>CashEagle</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QMdiArea" name="mdiArea">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>0</y>
+      <width>961</width>
+      <height>831</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContents</enum>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>949</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSettings"/>
+    <addaction name="actionSecurity_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit_2"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionMinimize"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionCashEagle_Help"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuBorrower">
+    <property name="title">
+     <string>Borrower</string>
+    </property>
+    <addaction name="actionNew_Borrower"/>
+    <addaction name="actionLocate_Borrowers"/>
+    <addaction name="actionCheck_Borrowers"/>
+    <addaction name="separator"/>
+    <addaction name="actionCredit_Check"/>
+   </widget>
+   <widget class="QMenu" name="menuLoan">
+    <property name="title">
+     <string>Loan</string>
+    </property>
+    <addaction name="actionNew_Loans"/>
+    <addaction name="actionLoan_Assess"/>
+   </widget>
+   <widget class="QMenu" name="menuPayment">
+    <property name="title">
+     <string>Payment</string>
+    </property>
+    <addaction name="actionMake_Payment"/>
+   </widget>
+   <widget class="QMenu" name="menuReports">
+    <property name="title">
+     <string>Reports</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuBorrower"/>
+   <addaction name="menuLoan"/>
+   <addaction name="menuPayment"/>
+   <addaction name="menuReports"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCashEagle_Help">
+   <property name="text">
+    <string>CashEagle Help</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionMinimize">
+   <property name="text">
+    <string>Minimize</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+F</string>
+   </property>
+  </action>
+  <action name="actionSecurity">
+   <property name="text">
+    <string>Security</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionSecurity_2">
+   <property name="text">
+    <string>Security</string>
+   </property>
+  </action>
+  <action name="actionExit_2">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionNew_Borrower">
+   <property name="text">
+    <string>New Borrower</string>
+   </property>
+  </action>
+  <action name="actionLocate_Borrowers">
+   <property name="text">
+    <string>Locate Borrowers</string>
+   </property>
+  </action>
+  <action name="actionCheck_Borrowers">
+   <property name="text">
+    <string>Borrower List</string>
+   </property>
+  </action>
+  <action name="actionNew_Loans">
+   <property name="text">
+    <string>New Loans</string>
+   </property>
+  </action>
+  <action name="actionLoan_Assess">
+   <property name="text">
+    <string>Loan Assess</string>
+   </property>
+  </action>
+  <action name="actionCredit_Check">
+   <property name="text">
+    <string>Credit Check</string>
+   </property>
+  </action>
+  <action name="actionMake_Payment">
+   <property name="text">
+    <string>Make Payment</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
