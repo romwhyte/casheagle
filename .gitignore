@@ -1,0 +1,34 @@
+__pycache__/
+investments/__pycache__/
+stockexchanges/__pycache__/
+pip-log.txt
+pip-delete-this-directory.txt
+venv/Lib/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+# Translations
+*.mo
+*.pot
+*.pyc
+*.exe
+.vscode/
+.idea/
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+portfolioapp/settings.py
+.idea/workspace.xml

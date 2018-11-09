@@ -10,6 +10,8 @@ class MyForm(QMainWindow):
         self.ui.setupUi(self)
         self.show()
 
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = MyForm()
