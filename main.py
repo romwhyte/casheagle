@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication
-from ui.MainUI import *
+from casheagle.ui.MainUI import *
 
 
 class MyForm(QMainWindow):
