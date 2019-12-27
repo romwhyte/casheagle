@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
-    <height>662</height>
+    <width>1055</width>
+    <height>830</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,17 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QMdiArea" name="mdiArea"/>
+     <widget class="QMdiArea" name="mdiArea">
+      <property name="background">
+       <brush brushstyle="Dense5Pattern">
+        <color alpha="255">
+         <red>160</red>
+         <green>160</green>
+         <blue>160</blue>
+        </color>
+       </brush>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -37,7 +47,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>845</width>
+     <width>1055</width>
      <height>26</height>
     </rect>
    </property>
@@ -66,19 +76,18 @@
    </widget>
    <widget class="QMenu" name="menuBorrower">
     <property name="title">
-     <string>Borrower</string>
+     <string>Clients</string>
     </property>
-    <addaction name="actionNew_Borrower"/>
-    <addaction name="actionLocate_Borrowers"/>
-    <addaction name="actionCheck_Borrowers"/>
+    <addaction name="actionApplicants"/>
     <addaction name="separator"/>
-    <addaction name="actionCredit_Check"/>
+    <addaction name="action_Borrower"/>
+    <addaction name="actionBorrowersList"/>
    </widget>
    <widget class="QMenu" name="menuLoan">
     <property name="title">
      <string>Loan</string>
     </property>
-    <addaction name="actionNew_Loans"/>
+    <addaction name="action_Loans"/>
     <addaction name="actionLoan_Assess"/>
    </widget>
    <widget class="QMenu" name="menuPayment">
@@ -86,21 +95,81 @@
      <string>Payment</string>
     </property>
     <addaction name="actionMake_Payment"/>
+    <addaction name="actionPayment_List"/>
    </widget>
    <widget class="QMenu" name="menuReports">
     <property name="title">
      <string>Reports</string>
     </property>
+    <widget class="QMenu" name="menuBorrowers">
+     <property name="title">
+      <string>Borrowers</string>
+     </property>
+     <addaction name="actionList_All_Borrowers"/>
+     <addaction name="actionNew_Applied"/>
+    </widget>
+    <widget class="QMenu" name="menuPayments">
+     <property name="title">
+      <string>Payments</string>
+     </property>
+     <addaction name="actionPayment_Due_Today"/>
+     <addaction name="actionPayment_Made"/>
+     <addaction name="actionPayment_Overdue"/>
+    </widget>
+    <widget class="QMenu" name="menuLoans">
+     <property name="title">
+      <string>Loans</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="separator"/>
+     <addaction name="actionNew_Loan"/>
+     <addaction name="actionAging_Loan"/>
+     <addaction name="actionCompleted_Loan"/>
+     <addaction name="actionOverdue_Loan"/>
+    </widget>
+    <widget class="QMenu" name="menuCollection">
+     <property name="title">
+      <string>Collection</string>
+     </property>
+     <addaction name="actionCalls_Made"/>
+    </widget>
+    <addaction name="menuBorrowers"/>
+    <addaction name="menuLoans"/>
+    <addaction name="menuPayments"/>
+    <addaction name="menuCollection"/>
+   </widget>
+   <widget class="QMenu" name="menuCollections">
+    <property name="title">
+     <string>Collections</string>
+    </property>
+    <addaction name="actionOverdue_List"/>
+    <addaction name="actionCall_Logs"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBorrower"/>
    <addaction name="menuLoan"/>
    <addaction name="menuPayment"/>
+   <addaction name="menuCollections"/>
    <addaction name="menuReports"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="separator"/>
+   <addaction name="action_Borrower"/>
+   <addaction name="action_Loans"/>
+   <addaction name="actionMake_Payment"/>
+  </widget>
   <action name="actionCashEagle_Help">
    <property name="text">
     <string>CashEagle Help</string>
@@ -144,9 +213,12 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionNew_Borrower">
+  <action name="action_Borrower">
    <property name="text">
-    <string>New Borrower</string>
+    <string>Borrowers</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
   <action name="actionLocate_Borrowers">
@@ -154,14 +226,14 @@
     <string>Locate Borrowers</string>
    </property>
   </action>
-  <action name="actionCheck_Borrowers">
+  <action name="actionBorrowersList">
    <property name="text">
-    <string>Borrower List</string>
+    <string>List</string>
    </property>
   </action>
-  <action name="actionNew_Loans">
+  <action name="action_Loans">
    <property name="text">
-    <string>New Loans</string>
+    <string>Loans</string>
    </property>
   </action>
   <action name="actionLoan_Assess">
@@ -177,6 +249,76 @@
   <action name="actionMake_Payment">
    <property name="text">
     <string>Make Payment</string>
+   </property>
+  </action>
+  <action name="actionPayment_List">
+   <property name="text">
+    <string>Payment List</string>
+   </property>
+  </action>
+  <action name="actionList_All_Borrowers">
+   <property name="text">
+    <string>List All Borrowers</string>
+   </property>
+  </action>
+  <action name="actionNew_Applied">
+   <property name="text">
+    <string>New Applied</string>
+   </property>
+  </action>
+  <action name="actionNew_Loan">
+   <property name="text">
+    <string>New Loan</string>
+   </property>
+  </action>
+  <action name="actionAging_Loan">
+   <property name="text">
+    <string>Aging Loan</string>
+   </property>
+  </action>
+  <action name="actionCompleted_Loan">
+   <property name="text">
+    <string>Completed Loan</string>
+   </property>
+  </action>
+  <action name="actionOverdue_Loan">
+   <property name="text">
+    <string>Overdue Loan</string>
+   </property>
+  </action>
+  <action name="actionPayment_Due_Today">
+   <property name="text">
+    <string>Payment Due Today</string>
+   </property>
+  </action>
+  <action name="actionPayment_Made">
+   <property name="text">
+    <string>Payment Made</string>
+   </property>
+  </action>
+  <action name="actionPayment_Overdue">
+   <property name="text">
+    <string>Payment Overdue</string>
+   </property>
+  </action>
+  <action name="actionCalls_Made">
+   <property name="text">
+    <string>Calls Made</string>
+   </property>
+  </action>
+  <action name="actionOverdue_List">
+   <property name="text">
+    <string>Overdue List</string>
+   </property>
+  </action>
+  <action name="actionCall_Logs">
+   <property name="text">
+    <string>Call Logs</string>
+   </property>
+  </action>
+  <action name="actionApplicants">
+   <property name="text">
+    <string>Applicants</string>
    </property>
   </action>
  </widget>
