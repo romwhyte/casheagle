@@ -3,6 +3,7 @@ investments/__pycache__/
 stockexchanges/__pycache__/
 pip-log.txt
 pip-delete-this-directory.txt
+venv/
 venv/Lib/
 
 # Unit test / coverage reports
