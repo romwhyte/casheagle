@@ -28,17 +28,7 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QMdiArea" name="mdiArea">
-      <property name="background">
-       <brush brushstyle="Dense5Pattern">
-        <color alpha="255">
-         <red>160</red>
-         <green>160</green>
-         <blue>160</blue>
-        </color>
-       </brush>
-      </property>
-     </widget>
+     <widget class="QMdiArea" name="mdiArea"/>
     </item>
    </layout>
   </widget>

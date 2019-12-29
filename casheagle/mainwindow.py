@@ -7,8 +7,8 @@ class MainForm(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.actionNew_Borrower.triggered.connect(self.openBorrower)
-        self.ui.actionNew_Loans.triggered.connect(self.openLoan)
+        self.ui.action_Borrower.triggered.connect(self.openBorrower)
+        self.ui.action_Loans.triggered.connect(self.openLoan)
         self.ui.actionMake_Payment.triggered.connect(self.makePayment)
         self.ui.actionAbout.triggered.connect(self.openAboutDialog)
         #self.ui.mdiArea

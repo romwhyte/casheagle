@@ -7,4 +7,3 @@ class BorrowerForm(QMdiSubWindow):
         self.ui = Ui_FormBorrower()
         self.ui.setupUi(self)
         self.setWindowTitle("Borrower")
-        
