@@ -24,12 +24,12 @@ coverage.xml
 .idea/
 # Django stuff:
 *.log
+*.db
 
 # Sphinx documentation
 docs/_build/
 
 # PyBuilder
 target/
-
-portfolioapp/settings.py
-.idea/workspace.xml
+.idea/
+.vscode/
