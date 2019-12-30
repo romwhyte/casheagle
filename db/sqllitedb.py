@@ -1,6 +1,7 @@
 from sqlalchemy import Table,Sequence, MetaData,create_engine, Column, Integer, String 
 from sqlalchemy.orm import sessionmaker
 from db import models
+
 class Database:
 
     def __init__(self, *args, **kwargs):

@@ -4,5 +4,5 @@ from db import sqllitedb
 
 
 if __name__ == "__main__":
-    sqllitedb.Database()
-    app.run()
+    db = sqllitedb.Database()
+    app.run(db)
