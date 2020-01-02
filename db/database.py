@@ -1,19 +1,20 @@
 from sqlalchemy import Table,Sequence, MetaData,create_engine, Column, Integer, String 
 from sqlalchemy.orm import sessionmaker
-from db import models
+from db import tables
 
 class Database:
 
     def __init__(self, *args, **kwargs):
-        engine = create_engine('sqlite:///borrower.db', echo = True)
+        engine = create_engine(args[0], echo = True)
 
         # generate the database schema
-        models.Base.metadata.create_all(engine)
+        tables.Base.metadata.create_all(engine)
 
         # create a configured "Session" class
-        self.session = sessionmaker(bind=engine)
+        Session = sessionmaker(bind=engine)
+        self.session = Session()
 
-    def insert(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         self.session.add(args[0])
         self.session.commit()
 

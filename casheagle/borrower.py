@@ -1,6 +1,16 @@
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget
+
+__author__ = "Romayne Whyte, http://ijasoft.com/"
+__version__ = "$Revision: 1.0 $"
+__date__ = "$Date: 2019/12/31 $"
+__copyright__ = "Copyright 2019 Ijasoft, Inc."
+
+
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QInputDialog, QMessageBox
+from PyQt5.QtGui import QIcon
+from datetime import datetime
 from casheagle.ui.borrower_ui import *
-from db import models 
+from db import tables 
+
 class BorrowerForm(QMdiSubWindow):
     def __init__(self):
         """Borrowers Sub Windows for the MDI
@@ -15,14 +25,43 @@ class BorrowerForm(QMdiSubWindow):
         self.setWindowTitle("Borrower")
         self.ui.btnApplied.clicked.connect(self.applied)
         self.ui.btnEdit.clicked.connect(self.edit)
+        self.ui.btnSave.clicked.connect(self.save)
+        self.ui.btnFind.clicked.connect(self.find)
+
+        self.borrower = tables.Borrower()
 
 
     def applied(self):
         """Allow information to be added to the fields
         """
         self.BorrowerTextfieldState(True)
-        self.clear()
-        self.buttonstate(True)
+        self.buttonState(True)
+        self.setFieldValue()
+
+    def edit(self):
+        self.BorrowerlineState(True)
+
+    def save(self):
+        """[summary]
+        """
+        self.getFieldValues()
+        self.db.save(self.borrower)
+        self.setFieldValue()
+        self.BorrowerTextfieldState(False)
+        self.buttonState(False)
+
+
+    def find(self):
+        """Find the Borrowerer Information
+        """
+        borrowerid, ok = QInputDialog.getInt(self, 'Find Borrowers Information','Borrower ID:')
+        self.borrower = self.db.find(tables.Borrower,borrowerid)
+        if not self.borrower:
+            self.borrower = tables.Borrower()
+            QMessageBox.information(self,"Not Found","The Borrowers ID was not found", QMessageBox.Ok)
+
+        self.setFieldValue()
+
 
     def BorrowerTextfieldState(self, state):
         """Change the edit state of the textfield from enabled to disabled
@@ -30,6 +69,7 @@ class BorrowerForm(QMdiSubWindow):
         Arguments:
             state {boolean} -- parameter for state change true for enable, false for disabled
         """
+
         self.ui.lineEditFirstName.setEnabled(state)
         self.ui.lineEditLastName.setEnabled(state)
         self.ui.lineEditMiddleInit.setEnabled(state)
@@ -39,6 +79,7 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.lineAddress1.setEnabled(state)
         self.ui.lineAddress2.setEnabled(state)
         self.ui.lineAddress3.setEnabled(state)
+        self.ui.lineLengthOfStay.setEnabled(state)
         self.ui.linePrevAddress1.setEnabled(state)
         self.ui.linePrevAddress2.setEnabled(state)
         self.ui.linePrevAddress3.setEnabled(state)
@@ -47,6 +88,7 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.lineWorkTel.setEnabled(state)
         self.ui.lineCellNo1.setEnabled(state)
         self.ui.lineCellNo2.setEnabled(state)
+        self.ui.dateDOB.setEnabled(state)
         self.ui.cbosex.setEnabled(state)
         self.ui.cboPaymentPeriod.setEnabled(state)
         self.ui.linePrevOccupation.setEnabled(state)
@@ -76,81 +118,110 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.lineSpouseTelNo.setEnabled(state)
 
 
-    def buttonstate(self, state):
+    def buttonState(self, state):
         self.ui.btnApplied.setEnabled(not state)
         #self.ui.btnDelete.setEnabled(not state)
         #self.ui.btnEdit.setEnabled(not state)
         self.ui.btnFind.setEnabled(not state)
         self.ui.btnSave.setEnabled(state)
 
+    def setFieldValue(self):
+        self.ui.lineEditFirstName.setText(""+self.borrower.id)
+        self.ui.lineEditFirstName.setText(self.borrower.FirstName)
+        self.ui.lineEditLastName.setText(self.borrower.LastName)
+        self.ui.lineEditMiddleInit.setText(self.borrower.MiddleName)
+        self.ui.lineEditTRN.setText(self.borrower.TRN)
+        self.ui.lineAlias.setText(self.borrower.Alias)
+        self.ui.cboMaritalStatus.setCurrentText(self.borrower.MaritalStatus)
+        self.ui.lineAddress1.setText(self.borrower.Address1)
+        self.ui.lineAddress2.setText(self.borrower.Address2)
+        self.ui.lineAddress3.setText(self.borrower.Address3)
+        self.ui.linePrevAddress1.setText(self.borrower.PrevAddr) 
+        self.ui.linePrevAddress2.setText(self.borrower.PrevAddr2) 
+        self.ui.linePrevAddress3.setText(self.borrower.PrevAddr3)
+        self.ui.linePrevLengthOfStay.setText(self.borrower.Length_reside_prev)
+        self.ui.lineHomeTel.setText(self.borrower.HomeTel)
+        self.ui.lineWorkTel.setText(self.borrower.WorkTel)
+        self.ui.lineCellNo1.setText(self.borrower.digicell)
+        self.ui.lineCellNo2.setText(self.borrower.digicel2)
+        self.ui.cbosex.setCurrentText(self.borrower.Sex)
+        self.ui.cboPaymentPeriod.setCurrentText(self.borrower.PaymentPeriod)
+        self.ui.linePrevOccupation.setText(self.borrower.PreviousEmployer)
+        self.ui.linePrevEmployer.setText(self.borrower.PreviousEmployer)
+        self.ui.linePrevEmpAddress1.setText(self.borrower.PrevEmpAddress1)
+        self.ui.linePrevEmpAddress2.setText(self.borrower.PrevEmpAddress2)
+        self.ui.linePrevEmpAddress3.setText(self.borrower.PrevEmpAddress3)
+        self.ui.linePrevEmpTelNo.setText(self.borrower.Extension)
+        self.ui.linePrevDepartment.setText(self.borrower.Department)
+        self.ui.datePrevEmpStartDate.setDate(datetime.strptime(self.borrower.EmpStartDate, '%m/%d/%y %H:%M:%S') if self.borrower.EmpStartDate else datetime.today()) 
+        self.ui.lineOccupation.setText(self.borrower.occupation)
+        self.ui.lineEmployer.setText(self.borrower.Employer1)
+        self.ui.lineEmpAddress1.setText(self.borrower.addressofemployment)
+        #self.borrower.FirstName =  self.ui.lineEmpAddress2.setText()
+        #self.borrower.FirstName =  self.ui.lineEmpAddress3.setText()
+        #self.borrower.FirstName =  self.ui.lineEmpTelNo.setText()
+        #self.borrower.FirstName =  self.ui.lineDepartment.setText()
+        #self.borrower.FirstName =  self.ui.dateEmpStartDate.setText()
+        #self.borrower. =  self.ui.lineEditSalaryAmount.setText()
+        #self.borrower.so =  self.ui.lineSpouseAlias.setText()
+        #self.borrower.FirstName =  self.ui.cboSpouseSex.setText()
+        #self.borrower.sp =  self.ui.dateSpouseDOB.setText()
+        self.ui.lineSpouseEmployer.setText(self.borrower.spouse_employment)
+        self.ui.lineSpouseFullAddress.setText(self.borrower.spouse_emp_address)
+        self.ui.lineSpouseFullName.setText(self.borrower.nameofspouse)
+        self.ui.lineSpouseTRN.setText(self.borrower.SpouseTRN)
+        self.ui.lineSpouseTelNo.setText(self.borrower.spouse_emp_tel)
 
 
-    def edit(self):
-        self.BorrowerlineState(True)
 
-    def clear(self):
-        self.ui.lineEditFirstName.setText("")
-        self.ui.lineEditLastName.setText("")
-        self.ui.lineEditMiddleInit.setText("")
-        self.ui.lineAddress1.setText("")
-        self.ui.lineAddress2.setText("")
-        self.ui.lineAddress3.setText("")
-        self.ui.lineLengthOfStay.setText("")
-        self.ui.lineHomeTel.setText("")
-        self.ui.lineWorkTel.setText("")
-        self.ui.lineCellNo1.setText("")
-        self.ui.lineCellNo1_2.setText("")
-        self.ui.lineEditFirstName.setFocus()
+    def getFieldValues(self):
+        self.borrower.FirstName =  self.ui.lineEditFirstName.text()
+        self.borrower.LastName =  self.ui.lineEditLastName.text()
+        self.borrower.MiddleName =  self.ui.lineEditMiddleInit.text()
+        self.borrower.TRN=  self.ui.lineEditTRN.text()
+        self.borrower.Alias =  self.ui.lineAlias.text()
+        self.borrower.MaritalStatus =  self.ui.cboMaritalStatus.itemText(self.ui.cboMaritalStatus.currentIndex())
+        self.borrower.Address1=  self.ui.lineAddress1.text()
+        self.borrower.Address2 =  self.ui.lineAddress2.text()
+        self.borrower.Address3 =  self.ui.lineAddress3.text()
+        self.borrower.PrevAddr =  self.ui.linePrevAddress1.text() 
+        self.borrower.PrevAddr2= self.ui.linePrevAddress2.text() 
+        self.borrower.PrevAddr3 = self.ui.linePrevAddress3.text()
+        self.borrower.Length_reside_prev =  self.ui.linePrevLengthOfStay.text()
+        self.borrower.HomeTel =  self.ui.lineHomeTel.text()
+        self.borrower.WorkTel =  self.ui.lineWorkTel.text()
+        self.borrower.digicell =  self.ui.lineCellNo1.text()
+        self.borrower.digicel2 =  self.ui.lineCellNo2.text()
+        self.borrower.Sex =  self.ui.cbosex.itemText(self.ui.cbosex.currentIndex())
+        self.borrower.PerForthnight =  self.ui.cboPaymentPeriod.itemText(self.ui.cboPaymentPeriod.currentIndex())
+        self.borrower.PreviousEmployer =  self.ui.linePrevOccupation.text()
+        self.borrower.PreviousEmployer =  self.ui.linePrevEmployer.text()
+        self.borrower.PrevEmpAddress1 =  self.ui.linePrevEmpAddress1.text()
+        self.borrower.PrevEmpAddress2 =  self.ui.linePrevEmpAddress2.text()
+        self.borrower.PrevEmpAddress3 =  self.ui.linePrevEmpAddress3.text()
+        self.borrower.PrevEmpTelNo =  self.ui.linePrevEmpTelNo.text()
+        self.borrower.PrevDepartment =  self.ui.linePrevDepartment.text()
+        self.borrower.datePrevEmpStartDate=  self.ui.datePrevEmpStartDate.date().toString('%m/%d/%y %H:%M:%S')
+        self.borrower.occupation =  self.ui.lineOccupation.text()
+        self.borrower.Employer1 =  self.ui.lineEmployer.text()
+        self.borrower.addressofemployment =  self.ui.lineEmpAddress1.text()
+        #self.borrower.FirstName =  self.ui.lineEmpAddress2.text()
+        #self.borrower.FirstName =  self.ui.lineEmpAddress3.text()
+        #self.borrower.FirstName =  self.ui.lineEmpTelNo.text()
+        #self.borrower.FirstName =  self.ui.lineDepartment.text()
+        #self.borrower.FirstName =  self.ui.dateEmpStartDate.text()
+        #self.borrower. =  self.ui.lineEditSalaryAmount.text()
+        #self.borrower.so =  self.ui.lineSpouseAlias.text()
+        #self.borrower.FirstName =  self.ui.cboSpouseSex.text()
+        #self.borrower.sp =  self.ui.dateSpouseDOB.text()
+        self.borrower.spouse_employment =  self.ui.lineSpouseEmployer.text()
+        self.borrower.spouse_emp_address =  self.ui.lineSpouseFullAddress.text()
+        self.borrower.nameofspouse =  self.ui.lineSpouseFullName.text()
+        self.borrower.SpouseTRN =  self.ui.lineSpouseTRN.text()
+        self.borrower.spouse_emp_tel =  self.ui.lineSpouseTelNo.text()
 
-    def setValues(self):
-        borrower = models.Borrower()
-        borrower.FirstName =  self.ui.lineEditFirstName.text()
-        borrower.LastName =  self.ui.lineEditLastName.text()
-        borrower.MiddleName =  self.ui.lineEditMiddleInit.text()
-        borrower.TRN=  self.ui.lineEditTRN.text()
-        borrower.Alias =  self.ui.lineAlias.text()
-        borrower.MaritalStatus =  self.ui.cboMaritalStatus.text()
-        borrower.Address1=  self.ui.lineAddress1.text()
-        borrower.Address2 =  self.ui.lineAddress2.text()
-        borrower.Address3 =  self.ui.lineAddress3.text()
-        borrower.PrevAddr =  self.ui.linePrevAddress1.text() 
-        #borrower.PrevAddr2= self.ui.linePrevAddress2.text() 
-        #borrower.PrevAddr3 = self.ui.linePrevAddress3.text()
-        borrower.Length_reside_prev =  self.ui.linePrevLengthOfStay.text()
-        borrower.HomeTel =  self.ui.lineHomeTel.text()
-        borrower.WorkTel =  self.ui.lineWorkTel.text()
-        borrower.digicell =  self.ui.lineCellNo1.text()
-        #borrower.digicel2 =  self.ui.lineCellNo2.text()
-        borrower.Sex =  self.ui.cbosex.itemText(self.ui.cbosex.currentIndex())
-        borrower.PerForthnight =  self.ui.cboPaymentPeriod.itemText(self.ui.cboPaymentPeriod.currentIndex())
-        #borrower.PreviousEmployer =  self.ui.linePrevOccupation.text()
-        borrower.PreviousEmployer =  self.ui.linePrevEmployer.text()
-        #borrower.em =  self.ui.linePrevEmpAddress1.text()
-        #borrower.PrevAddr =  self.ui.linePrevEmpAddress2.text()
-        #borrower.FirstName =  self.ui.linePrevEmpAddress3.text()
-        borrower.Extension =  self.ui.linePrevEmpTelNo.text()
-        borrower.Department =  self.ui.linePrevDepartment.text()
-        #borrower.dat =  self.ui.datePrevEmpStartDate.text()
-        borrower.occupation =  self.ui.lineOccupation.text()
-        borrower.Employer1 =  self.ui.lineEmployer.text()
-        borrower.addressofemployment =  self.ui.lineEmpAddress1.text()
-        #borrower.FirstName =  self.ui.lineEmpAddress2.text()
-        #borrower.FirstName =  self.ui.lineEmpAddress3.text()
-        #borrower.FirstName =  self.ui.lineEmpTelNo.text()
-        #borrower.FirstName =  self.ui.lineDepartment.text()
-        #borrower.FirstName =  self.ui.dateEmpStartDate.text()
-        #borrower. =  self.ui.lineEditSalaryAmount.text()
-        #borrower.so =  self.ui.lineSpouseAlias.text()
-        #borrower.FirstName =  self.ui.cboSpouseSex.text()
-        #borrower.sp =  self.ui.dateSpouseDOB.text()
-        borrower.spouse_employment =  self.ui.lineSpouseEmployer.text()
-        borrower.spouse_emp_address =  self.ui.lineSpouseFullAddress.text()
-        borrower.nameofspouse =  self.ui.lineSpouseFullName.text()
-        #borrower.s =  self.ui.lineSpouseTRN.text()
-        borrower.spouse_emp_tel =  self.ui.lineSpouseTelNo.text()
-
+    def validate(self):
+        pass
 
     def setPers(self,db):
         self.db = db
-
-    

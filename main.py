@@ -1,8 +1,8 @@
 import sys
 from casheagle import app
-from db import sqllitedb
+from db import database
 
 
 if __name__ == "__main__":
-    db = sqllitedb.Database()
+    db = database.Database('sqlite:///borrower.db')
     app.run(db)
