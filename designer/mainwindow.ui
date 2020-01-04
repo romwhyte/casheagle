@@ -156,9 +156,11 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
+   <addaction name="actionApplicants"/>
    <addaction name="action_Borrower"/>
    <addaction name="action_Loans"/>
    <addaction name="actionMake_Payment"/>
+   <addaction name="actionReports"/>
   </widget>
   <action name="actionCashEagle_Help">
    <property name="text">
@@ -309,6 +311,11 @@
   <action name="actionApplicants">
    <property name="text">
     <string>Applicants</string>
+   </property>
+  </action>
+  <action name="actionReports">
+   <property name="text">
+    <string>Reports</string>
    </property>
   </action>
  </widget>

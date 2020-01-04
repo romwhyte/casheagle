@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QAction
-from casheagle.ui.mainwindow_ui import *
-from casheagle import borrower
+from ui_action.ui.mainwindow_ui import *
+from ui_action.action import borrower
 
 class MainForm(QMainWindow):
     def __init__(self):

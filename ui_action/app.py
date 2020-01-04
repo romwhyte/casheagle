@@ -1,10 +1,10 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from casheagle import mainwindow
+from .action import main
 
 def run(db):
     app = QApplication(sys.argv)
-    w = mainwindow.MainForm()
+    w = main.MainForm()
     w.setPers(db)
     w.show()
     sys.exit(app.exec_())
