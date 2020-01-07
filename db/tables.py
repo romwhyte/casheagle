@@ -1,4 +1,5 @@
-from sqlalchemy import Table, Sequence, MetaData,create_engine, Column, Integer, String 
+from sqlalchemy import Table, Sequence, MetaData,create_engine, Column,Boolean, Date, Integer, String, ForeignKey
+from sqlalchemy.orm import backref, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -14,7 +15,7 @@ class Borrower(Base):
     Alias = Column(String)
     Sex = Column(String)
     MaritalStatus = Column(String)
-    Age = Column(String)
+    DOB = Column(Date)
     Address = Column(String)
     Length_reside = Column(String)
     PrevAddr = Column(String)
@@ -99,9 +100,9 @@ class Borrower(Base):
     validateby = Column(String)
     validatedate = Column(String)
 
-class Guarantors(Base):
-    __tablename__ = 'tblGuarantors'
-    id = Column(Integer, Sequence('guarantors_id_seq'), primary_key=True)
+class Guarantor(Base):
+    __tablename__ = 'tblGuarantor'
+    id = Column(Integer, Sequence('guarantor_id_seq'), primary_key=True)
     appid = Column(String)
     ApplicationDate = Column(String)
     FirstName = Column(String)
@@ -110,7 +111,7 @@ class Guarantors(Base):
     Alias = Column(String)
     Sex = Column(String)
     MaritalStatus = Column(String)
-    Age = Column(String)
+    DOB = Column(Date)
     Address = Column(String)
     Length_reside = Column(String)
     PrevAddr = Column(String)
@@ -194,3 +195,9 @@ class Guarantors(Base):
     stamp = Column(String)
     validateby = Column(String)
     validatedate = Column(String)
+    borrower_id = Column(Integer, ForeignKey('tblborrowers.id'))
+    borrower = relationship("Borrower", backref="tblGuarantor")
+
+    def __init__(self, borrower):
+        self.borrower = borrower
+        

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1563</width>
+    <width>1597</width>
     <height>897</height>
    </rect>
   </property>
@@ -94,7 +94,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>9</x>
@@ -194,28 +194,6 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
-       <widget class="QGroupBox" name="grpLookup">
-        <property name="title">
-         <string>Look up</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_8">
-         <item>
-          <widget class="QLabel" name="label_117">
-           <property name="text">
-            <string>Full Name</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineBorrowerName"/>
-         </item>
-         <item>
-          <widget class="QTableView" name="tableView"/>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QTabWidget" name="tabWidget">
@@ -249,7 +227,7 @@
                 <rect>
                  <x>0</x>
                  <y>-249</y>
-                 <width>977</width>
+                 <width>1264</width>
                  <height>943</height>
                 </rect>
                </property>
@@ -319,6 +297,9 @@
                        <widget class="QLineEdit" name="lineEditFirstName">
                         <property name="enabled">
                          <bool>true</bool>
+                        </property>
+                        <property name="clearButtonEnabled">
+                         <bool>false</bool>
                         </property>
                        </widget>
                       </item>
@@ -1193,8 +1174,8 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-279</y>
-                 <width>977</width>
+                 <y>0</y>
+                 <width>1264</width>
                  <height>995</height>
                 </rect>
                </property>
