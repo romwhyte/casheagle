@@ -5,7 +5,7 @@ __date__ = "$Date: 2019/12/31 $"
 __copyright__ = "Copyright 2019 Ijasoft, Inc."
 
 
-from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QInputDialog, QMessageBox
+from PyQt5.QtWidgets import QMdiSubWindow, QWidget, QInputDialog, QMessageBox, QDockWidget
 from PyQt5.QtCore import QDate, QDateTime, Qt, QRegExp
 from PyQt5.QtGui import QIcon, QRegExpValidator
 
@@ -41,7 +41,9 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.btnDelete.clicked.connect(self.delete)
 
         #self.validate()
+        #self.borrowermodel = QSqlTableModel()
         self.borrower = tables.Borrower()
+        self.guarantor = tables.Guarantor(self.borrower)
         self.BorrowerTextfieldState(False)
 
 
@@ -85,15 +87,16 @@ class BorrowerForm(QMdiSubWindow):
     def find(self):
         """Find the Borrowerer Information
         """
-        borrowerid, ok = QInputDialog.getInt(self, 'Find Borrowers Information','Borrower ID:')
-        self.borrower = self.db.find(tables.Borrower,borrowerid)
-        if not self.borrower:
-            self.borrower = tables.Borrower()
-            QMessageBox.information(self,"Not Found","The Borrowers ID was not found", QMessageBox.Ok)
+        self.ui.dockWidget.setVisible(True)
+        #borrowerid, ok = QInputDialog.getInt(self, 'Find Borrowers Information','Borrower ID:')
+        #self.borrower = self.db.find(tables.Borrower,borrowerid)
+        #if not self.borrower:
+        #    self.borrower = tables.Borrower()
+        #    QMessageBox.information(self,"Not Found","The Borrowers ID was not found", QMessageBox.Ok)
 
-        self.setFieldValue()
+        #self.setFieldValue()
 
-        self.buttonState(False)
+        #self.buttonState(False)
         
 
 
@@ -119,11 +122,8 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.grpGEmployment.setEnabled(state)
         self.ui.grpGspouse.setEnabled(state)
         
-
     def buttonState(self, state):
         #TODO : Setup a way to enable delete and edit when record is loaded in fields
-
-        
         self.ui.btnApplied.setEnabled(not state)
         
         if self.ui.lineID.text() != "":
@@ -189,50 +189,49 @@ class BorrowerForm(QMdiSubWindow):
     def setGuarantorFieldValues(self):
         """[summary]
         """
-        self.ui.lineEditGFirstName.setText(self.borrower.FirstName)
-        self.ui.lineEditGLastName.setText(self.borrower.LastName)
-        self.ui.lineEditGMiddleInit.setText(self.borrower.MiddleName)
-        self.ui.lineEditGTRN.setText(self.borrower.TRN)
-        self.ui.lineAlias.setText(self.borrower.Alias)
-        self.ui.cboGMaritalStatus.setCurrentText(self.borrower.MaritalStatus)
-        self.ui.lineGAddress1.setText(self.borrower.Address1)
-        self.ui.lineGAddress2.setText(self.borrower.Address2)
-        self.ui.lineGAddress3.setText(self.borrower.Address3)
-        self.ui.lineGPrevAddress1.setText(self.borrower.PrevAddr)
-        self.ui.lineGPrevAddress2.setText(self.borrower.PrevAddr2)
-        self.ui.lineGPrevAddress3.setText(self.borrower.PrevAddr3)
-        self.ui.lineGPrevLengthOfStay.setText(self.borrower.Length_reside_prev)
-        self.ui.lineGHomeTel.setText(self.borrower.HomeTel)
-        self.ui.lineGWorkTel.setText(self.borrower.WorkTel)
-        self.ui.lineGCellNo1.setText(self.borrower.digicell)
-        self.ui.lineGCellNo2.setText(self.borrower.digicel2)
-        self.ui.cboGsex.setCurrentText(self.borrower.Sex)
-        self.ui.cboGPaymentPeriod.setCurrentText(self.borrower.PaymentPeriod)
-        self.ui.lineGPrevOccupation.setText(self.borrower.PreviousEmployer)
-        self.ui.lineGPrevEmployer.setText(self.borrower.PreviousEmployer)
-        self.ui.lineGPrevEmpAddress1.setText(self.borrower.PrevEmpAddress1)
-        self.ui.lineGPrevEmpAddress2.setText(self.borrower.PrevEmpAddress2)
-        self.ui.lineGPrevEmpAddress3.setText(self.borrower.PrevEmpAddress3)
-        self.ui.datePrevEmpStartDate.setDate(date.fromisoformat(self.borrower.PrevEmpStartDate) if self.borrower.PrevEmpStartDate else date.today())
-        self.ui.lineGPrevEmpTelNo.setText(self.borrower.Extension)
-        self.ui.lineGPrevDepartment.setText(self.borrower.Department)
-        self.ui.dateGDOB.setDate(date.fromisoformat(self.borrower.DOB) if self.borrower.DOB else date.today())
-        self.ui.lineGOccupation.setText(self.borrower.occupation)
-        self.ui.lineGEmployer.setText(self.borrower.Employer1)
-        self.ui.lineGEmpAddress1.setText(self.borrower.EmpAddress1)
-        self.ui.lineGEmpAddress2.setText(self.borrower.EmpAddress2)
-        self.ui.lineGEmpAddress3.setText(self.borrower.EmpAddress3)
-        self.ui.lineGEmpTelNo.setText(self.borrower.EmpAddress3)
-        self.ui.lineGDepartment.setText(self.borrower.Department)
-        self.ui.dateGEmpStartDate.setDate(date.fromisoformat(self.borrower.EmpStartDate) if self.borrower.EmpStartDate else date.today())
-        self.ui.lineGEditGSalaryAmount.setText(self.borrower.SalaryAmount)
-        self.ui.lineGSpouseEmployer.setText(self.borrower.spouse_employment)
-        self.ui.lineGSpouseFullAddress.setText(self.borrower.spouse_emp_address)
-        self.ui.lineGSpouseFullName.setText(self.borrower.nameofspouse)
-        self.ui.lineGSpouseTRN.setText(self.borrower.SpouseTRN)
-        self.ui.lineGSpouseTelNo.setText(self.borrower.spouse_emp_tel)
-        self.ui.lineGSpouseAlias.setText(self.borrower.SpouseAlias)
-        self.ui.dateGSpouseDOB.setDate(date.fromisoformat(self.borrower.SpouseDOB) if self.borrower.SpouseDOB else date.today())
+        self.ui.lineEditGFirstName.setText(self.guarantor.FirstName)
+        self.ui.lineEditGLastName.setText(self.guarantor.LastName)
+        self.ui.lineEditGMiddleInit.setText(self.guarantor.MiddleName)
+        self.ui.lineEditGTRN.setText(self.guarantor.TRN)
+        self.ui.lineAlias.setText(self.guarantor.Alias)
+        self.ui.cboGMaritalStatus.setCurrentText(self.guarantor.MaritalStatus)
+        self.ui.lineGAddress1.setText(self.guarantor.Address1)
+        self.ui.lineGAddress2.setText(self.guarantor.Address2)
+        self.ui.lineGAddress3.setText(self.guarantor.Address3)
+        self.ui.lineGPrevAddress1.setText(self.guarantor.PrevAddr)
+        self.ui.lineGPrevAddress2.setText(self.guarantor.PrevAddr2)
+        self.ui.lineGPrevAddress3.setText(self.guarantor.PrevAddr3)
+        self.ui.lineGPrevLengthOfStay.setText(self.guarantor.Length_reside_prev)
+        self.ui.lineGHomeTel.setText(self.guarantor.HomeTel)
+        self.ui.lineGWorkTel.setText(self.guarantor.WorkTel)
+        self.ui.lineGCellNo1.setText(self.guarantor.digicell)
+        self.ui.lineGCellNo2.setText(self.guarantor.digicel2)
+        self.ui.cboGPaymentPeriod.setCurrentText(self.guarantor.PaymentPeriod)
+        self.ui.lineGPrevOccupation.setText(self.guarantor.PreviousEmployer)
+        self.ui.lineGPrevEmployer.setText(self.guarantor.PreviousEmployer)
+        self.ui.lineGPrevEmpAddress1.setText(self.guarantor.PrevEmpAddress1)
+        self.ui.lineGPrevEmpAddress2.setText(self.guarantor.PrevEmpAddress2)
+        self.ui.lineGPrevEmpAddress3.setText(self.guarantor.PrevEmpAddress3)
+        self.ui.datePrevEmpStartDate.setDate(date.fromisoformat(self.guarantor.PrevEmpStartDate) if self.guarantor.PrevEmpStartDate else date.today())
+        self.ui.lineGPrevEmpTelNo.setText(self.guarantor.Extension)
+        self.ui.lineGPrevDepartment.setText(self.guarantor.Department)
+        self.ui.dateGDOB.setDate(date.fromisoformat(self.guarantor.DOB) if self.guarantor.DOB else date.today())
+        self.ui.lineGOccupation.setText(self.guarantor.occupation)
+        self.ui.lineGEmployer.setText(self.guarantor.Employer1)
+        self.ui.lineGEmpAddress1.setText(self.guarantor.EmpAddress1)
+        self.ui.lineGEmpAddress2.setText(self.guarantor.EmpAddress2)
+        self.ui.lineGEmpAddress3.setText(self.guarantor.EmpAddress3)
+        self.ui.lineGEmpTelNo.setText(self.guarantor.EmpAddress3)
+        self.ui.lineGDepartment.setText(self.guarantor.Department)
+        self.ui.dateGEmpStartDate.setDate(date.fromisoformat(self.guarantor.EmpStartDate) if self.guarantor.EmpStartDate else date.today())
+        self.ui.lineGEditGSalaryAmount.setText(self.guarantor.SalaryAmount)
+        self.ui.lineGSpouseEmployer.setText(self.guarantor.spouse_employment)
+        self.ui.lineGSpouseFullAddress.setText(self.guarantor.spouse_emp_address)
+        self.ui.lineGSpouseFullName.setText(self.guarantor.nameofspouse)
+        self.ui.lineGSpouseTRN.setText(self.guarantor.SpouseTRN)
+        self.ui.lineGSpouseTelNo.setText(self.guarantor.spouse_emp_tel)
+        self.ui.lineGSpouseAlias.setText(self.guarantor.SpouseAlias)
+        self.ui.dateGSpouseDOB.setDate(date.fromisoformat(self.guarantor.SpouseDOB) if self.guarantor.SpouseDOB else date.today())
 
 
 
