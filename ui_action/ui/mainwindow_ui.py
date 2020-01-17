@@ -122,6 +122,8 @@ class Ui_MainWindow(object):
         self.actionCall_Logs.setObjectName("actionCall_Logs")
         self.actionApplicants = QtWidgets.QAction(MainWindow)
         self.actionApplicants.setObjectName("actionApplicants")
+        self.actionReports = QtWidgets.QAction(MainWindow)
+        self.actionReports.setObjectName("actionReports")
         self.menuFile.addAction(self.actionSettings)
         self.menuFile.addAction(self.actionSecurity_2)
         self.menuFile.addSeparator()
@@ -165,9 +167,11 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuWindow.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.toolBar.addSeparator()
+        self.toolBar.addAction(self.actionApplicants)
         self.toolBar.addAction(self.action_Borrower)
         self.toolBar.addAction(self.action_Loans)
         self.toolBar.addAction(self.actionMake_Payment)
+        self.toolBar.addAction(self.actionReports)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -219,4 +223,5 @@ class Ui_MainWindow(object):
         self.actionOverdue_List.setText(_translate("MainWindow", "Overdue List"))
         self.actionCall_Logs.setText(_translate("MainWindow", "Call Logs"))
         self.actionApplicants.setText(_translate("MainWindow", "Applicants"))
+        self.actionReports.setText(_translate("MainWindow", "Reports"))
 

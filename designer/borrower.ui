@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1597</width>
+    <width>1603</width>
     <height>897</height>
    </rect>
   </property>
@@ -123,15 +123,19 @@
         <item>
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>Name</string>
+           <string>Find Input</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit"/>
+         <widget class="QLineEdit" name="txtFind">
+          <property name="placeholderText">
+           <string>ID or SSID/TRN or Name</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget"/>
+         <widget class="QTableWidget" name="tblBorrowersList"/>
         </item>
        </layout>
       </widget>
@@ -245,7 +249,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="tabBorrower">
              <attribute name="title">
@@ -1347,7 +1351,7 @@
                          </widget>
                         </item>
                         <item row="3" column="1">
-                         <widget class="QDateEdit" name="dateEdit_4">
+                         <widget class="QDateEdit" name="dateGDOB">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -1721,7 +1725,7 @@
                          </widget>
                         </item>
                         <item row="1" column="0">
-                         <widget class="QLineEdit" name="linePrevEmployer_2">
+                         <widget class="QLineEdit" name="lineGPrevEmployer">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -1731,7 +1735,7 @@
                          </widget>
                         </item>
                         <item row="1" column="1">
-                         <widget class="QLineEdit" name="linePrevOccupation_2">
+                         <widget class="QLineEdit" name="lineGPrevOccupation">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -1748,7 +1752,7 @@
                          </widget>
                         </item>
                         <item row="1" column="3">
-                         <widget class="QLineEdit" name="linePrevDepartment_2">
+                         <widget class="QLineEdit" name="lineGPrevDepartment">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -1786,7 +1790,7 @@
                          </widget>
                         </item>
                         <item row="3" column="0">
-                         <widget class="QLineEdit" name="linePrevEmpAddress1_2">
+                         <widget class="QLineEdit" name="lineGPrevEmpAddress1">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -1796,7 +1800,7 @@
                          </widget>
                         </item>
                         <item row="3" column="1">
-                         <widget class="QLineEdit" name="linePrevEmpAddress2_2">
+                         <widget class="QLineEdit" name="lineGPrevEmpAddress2">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -1806,7 +1810,7 @@
                          </widget>
                         </item>
                         <item row="3" column="2">
-                         <widget class="QLineEdit" name="linePrevEmpAddress3_2">
+                         <widget class="QLineEdit" name="lineGPrevEmpAddress3">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -1816,7 +1820,7 @@
                          </widget>
                         </item>
                         <item row="3" column="3">
-                         <widget class="QLineEdit" name="linePrevEmpTelNo_2">
+                         <widget class="QLineEdit" name="lineGPrevEmpTelNo">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -2065,28 +2069,28 @@
                          </widget>
                         </item>
                         <item row="1" column="0">
-                         <widget class="QLineEdit" name="lineGEditFirstName">
+                         <widget class="QLineEdit" name="lineGSpouseFullName">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="1">
-                         <widget class="QLineEdit" name="lineGEditMiddleInit">
+                         <widget class="QLineEdit" name="lineGSpouseAlias">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="2">
-                         <widget class="QLineEdit" name="lineGEditLastName">
+                         <widget class="QLineEdit" name="lineGSpouseFullAddress">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="3">
-                         <widget class="QLineEdit" name="lineGEditMiddleInit_2">
+                         <widget class="QLineEdit" name="lineGSpouseEmployer">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>
@@ -2142,7 +2146,7 @@
                          </widget>
                         </item>
                         <item row="3" column="0">
-                         <widget class="QLineEdit" name="lineGSpouseIncome">
+                         <widget class="QLineEdit" name="lineGSpouseSalaryAmount">
                           <property name="enabled">
                            <bool>true</bool>
                           </property>

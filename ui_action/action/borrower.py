@@ -87,7 +87,7 @@ class BorrowerForm(QMdiSubWindow):
     def find(self):
         """Find the Borrowerer Information
         """
-        self.ui.dockWidget.setVisible(True)
+        self.ui.dockWidgetFindBorrower.setVisible(True)
         #borrowerid, ok = QInputDialog.getInt(self, 'Find Borrowers Information','Borrower ID:')
         #self.borrower = self.db.find(tables.Borrower,borrowerid)
         #if not self.borrower:
@@ -224,7 +224,7 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.lineGEmpTelNo.setText(self.guarantor.EmpAddress3)
         self.ui.lineGDepartment.setText(self.guarantor.Department)
         self.ui.dateGEmpStartDate.setDate(date.fromisoformat(self.guarantor.EmpStartDate) if self.guarantor.EmpStartDate else date.today())
-        self.ui.lineGEditGSalaryAmount.setText(self.guarantor.SalaryAmount)
+        self.ui.lineGSpouseSalaryAmount.setText(self.guarantor.SalaryAmount)
         self.ui.lineGSpouseEmployer.setText(self.guarantor.spouse_employment)
         self.ui.lineGSpouseFullAddress.setText(self.guarantor.spouse_emp_address)
         self.ui.lineGSpouseFullName.setText(self.guarantor.nameofspouse)
