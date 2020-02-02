@@ -1,0 +1,117 @@
+# Another, different, factory for the same object
+import datetime
+import factory
+import factory.fuzzy
+import random
+from sqlalchemy import Table,Sequence, MetaData,create_engine, Column, Integer, String 
+from sqlalchemy.orm import sessionmaker, scoped_session
+from db import database, tables
+
+db = database.Database('sqlite:///test/borrower.db', echo = False)
+
+# # generate the database schema
+# tables.Base.metadata.create_all(engine)
+
+# # create a configured "Session" class
+# Session = scoped_session(sessionmaker(bind=engine))
+
+
+
+class BorrowerFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = tables.Borrower
+        sqlalchemy_session = db.session   # the SQLAlchemy session object
+
+    id = factory.Sequence(lambda n: n)
+    appid = factory.Sequence(lambda n: '%s' % n)
+    ApplicationDate = factory.LazyFunction(datetime.datetime.now)
+    FirstName = factory.Sequence(lambda n: 'john%s' % n)
+    LastName = factory.Sequence(lambda n: 'Bolton%s' % n)
+    MiddleName = factory.Sequence(lambda n: 'S%s' % n)
+    Alias = factory.fuzzy.FuzzyText()
+    Sex = "Male"
+    MaritalStatus = factory.fuzzy.FuzzyText()
+    DOB = factory.LazyFunction(datetime.datetime.now)
+    Address = factory.fuzzy.FuzzyText()
+    Length_reside = factory.fuzzy.FuzzyText()
+    PrevAddr = factory.fuzzy.FuzzyText()
+    PrevAddr2 = factory.fuzzy.FuzzyText()
+    PrevAddr3 = factory.fuzzy.FuzzyText()
+    Length_reside_prev = factory.fuzzy.FuzzyText()
+    HomeTel = factory.fuzzy.FuzzyText()
+    WorkTel = factory.fuzzy.FuzzyText()
+    OwnHome = factory.fuzzy.FuzzyText()
+    Rent = factory.fuzzy.FuzzyText()
+    Amt_Rent = factory.fuzzy.FuzzyText()
+    Other = factory.fuzzy.FuzzyText()
+    Morgage_monthly = factory.fuzzy.FuzzyText()
+    occupation = factory.fuzzy.FuzzyText()
+    nameofemployer = factory.fuzzy.FuzzyText()
+    EmpAddress1 = factory.fuzzy.FuzzyText()
+    EmpAddress2 = factory.fuzzy.FuzzyText()
+    EmpAddress3 = factory.fuzzy.FuzzyText()
+    EmpStartDate  = factory.LazyFunction(datetime.datetime.now)
+    Department = factory.fuzzy.FuzzyText()
+    PrevEmpAddress1 = factory.fuzzy.FuzzyText()
+    PrevEmpAddress2 = factory.fuzzy.FuzzyText()
+    PrevEmpAddress3 = factory.fuzzy.FuzzyText()
+    PrevEmpStartDate = factory.LazyFunction(datetime.datetime.now)
+    Extension = factory.fuzzy.FuzzyText()
+    PostionHeld = factory.fuzzy.FuzzyText()
+    PaymentPeriod = factory.fuzzy.FuzzyText()
+    PreviousEmployer = factory.fuzzy.FuzzyText()
+    otherIncomeSource = factory.fuzzy.FuzzyText()
+    nameofspouse = factory.fuzzy.FuzzyText()
+    addressofspouse = factory.fuzzy.FuzzyText()
+    spouse_employment = factory.fuzzy.FuzzyText()
+    spouse_emp_address = factory.fuzzy.FuzzyText()
+    spouse_emp_tel = factory.fuzzy.FuzzyText()
+    SpouseAlias = factory.fuzzy.FuzzyText()
+    SpouseTRN = factory.fuzzy.FuzzyText()
+    SpouseDOB = factory.LazyFunction(datetime.datetime.now)
+    Dependent = factory.fuzzy.FuzzyText()
+    LoanAmtNeed = factory.fuzzy.FuzzyText()
+    PurposeOfLoan = factory.fuzzy.FuzzyText()
+    DurationOfLoan = factory.fuzzy.FuzzyText()
+    ReturningCustomer = factory.fuzzy.FuzzyText()
+    YesAmount = factory.fuzzy.FuzzyText()
+    OutstandingDebtName = factory.fuzzy.FuzzyText()
+    OutstandingDebtAmount = factory.fuzzy.FuzzyText()
+    SalaryAmount = factory.fuzzy.FuzzyText()
+    ProcessDate = factory.LazyFunction(datetime.datetime.now)
+    Name1 = factory.fuzzy.FuzzyText()
+    Address1 = factory.fuzzy.FuzzyText()
+    WorkNum1 = factory.fuzzy.FuzzyText()
+    HomeNum1 = factory.fuzzy.FuzzyText()
+    Relations1 = factory.fuzzy.FuzzyText()
+    Name2 = factory.fuzzy.FuzzyText()
+    Address2 = factory.fuzzy.FuzzyText()
+    WorkNum2 = factory.fuzzy.FuzzyText()
+    HomeNum2 = factory.fuzzy.FuzzyText()
+    Relations2 = factory.fuzzy.FuzzyText()
+    Employer2 = factory.fuzzy.FuzzyText()
+    Name3 = factory.fuzzy.FuzzyText()
+    Address3 = factory.fuzzy.FuzzyText()
+    WorkNum3 = factory.fuzzy.FuzzyText()
+    HomeNum3 = factory.fuzzy.FuzzyText()
+    Relation3 = factory.fuzzy.FuzzyText()
+    Employer3 = factory.fuzzy.FuzzyText()
+    Name4 = factory.fuzzy.FuzzyText()
+    Address4 = factory.fuzzy.FuzzyText()
+    WorkNum4 = factory.fuzzy.FuzzyText()
+    HomeNum4 = factory.fuzzy.FuzzyText()
+    Relations4 = factory.fuzzy.FuzzyText()
+    Employer4 = factory.fuzzy.FuzzyText()
+    Employer1 = factory.fuzzy.FuzzyText()
+    Picture = factory.fuzzy.FuzzyText()
+    incomeid = factory.fuzzy.FuzzyText()
+    filename = factory.fuzzy.FuzzyText()
+    Comment = factory.fuzzy.FuzzyText()
+    TRN = factory.fuzzy.FuzzyText()
+    digicell = factory.fuzzy.FuzzyText()
+    digicel2 = factory.fuzzy.FuzzyText()
+    branch= factory.fuzzy.FuzzyText()
+    branchname = factory.fuzzy.FuzzyText()
+    stamp = factory.fuzzy.FuzzyText()
+    validateby = factory.fuzzy.FuzzyText()
+    validatedate = factory.LazyFunction(datetime.datetime.now)

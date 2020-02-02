@@ -1,4 +1,3 @@
-
 __author__ = "Romayne Whyte, http://ijasoft.com/"
 __version__ = "$Revision: 1.0 $"
 __date__ = "$Date: 2019/12/31 $"
@@ -67,8 +66,8 @@ class BorrowerForm(QMdiSubWindow):
         self.setFieldValue()
         self.BorrowerTextfieldState(False)
         self.buttonState(False)
-        logger.info("insert/update", self.borrower)
-
+        logger.debug("insert/update", self.borrower)
+        
     def cancel(self):
         """[summary]
         """
@@ -93,11 +92,9 @@ class BorrowerForm(QMdiSubWindow):
         #if not self.borrower:
         #    self.borrower = tables.Borrower()
         #    QMessageBox.information(self,"Not Found","The Borrowers ID was not found", QMessageBox.Ok)
-
-        #self.setFieldValue()
-
-        #self.buttonState(False)
         
+        #self.setFieldValue()
+        #self.buttonState(False)
 
 
     def BorrowerTextfieldState(self, state):
@@ -121,7 +118,7 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.grpGPrevEmployment.setEnabled(state)
         self.ui.grpGEmployment.setEnabled(state)
         self.ui.grpGspouse.setEnabled(state)
-        
+
     def buttonState(self, state):
         #TODO : Setup a way to enable delete and edit when record is loaded in fields
         self.ui.btnApplied.setEnabled(not state)
@@ -164,10 +161,10 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.linePrevEmpAddress1.setText(self.borrower.PrevEmpAddress1)
         self.ui.linePrevEmpAddress2.setText(self.borrower.PrevEmpAddress2)
         self.ui.linePrevEmpAddress3.setText(self.borrower.PrevEmpAddress3)
-        self.ui.datePrevEmpStartDate.setDate(date.fromisoformat(self.borrower.PrevEmpStartDate) if self.borrower.PrevEmpStartDate else date.today())
+        self.ui.datePrevEmpStartDate.setDate(self.borrower.PrevEmpStartDate if self.borrower.PrevEmpStartDate else date.today())
         self.ui.linePrevEmpTelNo.setText(self.borrower.Extension)
         self.ui.linePrevDepartment.setText(self.borrower.Department)
-        self.ui.dateDOB.setDate(date.fromisoformat(self.borrower.DOB) if self.borrower.DOB else date.today())
+        self.ui.dateDOB.setDate(self.borrower.DOB if self.borrower.DOB else date.today())
         self.ui.lineOccupation.setText(self.borrower.occupation)
         self.ui.lineEmployer.setText(self.borrower.Employer1)
         self.ui.lineEmpAddress1.setText(self.borrower.EmpAddress1)
@@ -175,7 +172,7 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.lineEmpAddress3.setText(self.borrower.EmpAddress3)
         self.ui.lineEmpTelNo.setText(self.borrower.EmpAddress3)
         self.ui.lineDepartment.setText(self.borrower.Department)
-        self.ui.dateEmpStartDate.setDate(date.fromisoformat(self.borrower.EmpStartDate) if self.borrower.EmpStartDate else date.today())
+        self.ui.dateEmpStartDate.setDate(self.borrower.EmpStartDate if self.borrower.EmpStartDate else date.today())
         self.ui.lineEditSalaryAmount.setText(self.borrower.SalaryAmount)
         self.ui.lineSpouseEmployer.setText(self.borrower.spouse_employment)
         self.ui.lineSpouseFullAddress.setText(self.borrower.spouse_emp_address)
@@ -183,7 +180,7 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.lineSpouseTRN.setText(self.borrower.SpouseTRN)
         self.ui.lineSpouseTelNo.setText(self.borrower.spouse_emp_tel)
         self.ui.lineSpouseAlias.setText(self.borrower.SpouseAlias)
-        self.ui.dateSpouseDOB.setDate(date.fromisoformat(self.borrower.SpouseDOB) if self.borrower.SpouseDOB else date.today())
+        self.ui.dateSpouseDOB.setDate(self.borrower.SpouseDOB if self.borrower.SpouseDOB else date.today())
 
     
     def setGuarantorFieldValues(self):
@@ -266,7 +263,7 @@ class BorrowerForm(QMdiSubWindow):
         self.borrower.PrevEmpAddress3 = self.ui.linePrevEmpAddress3.text()
         self.borrower.Extension = self.ui.linePrevEmpTelNo.text()
         self.borrower.Department = self.ui.linePrevDepartment.text()
-        self.borrower.EmpStartDate = self.ui.datePrevEmpStartDate.date().currentDate().toString(Qt.ISODate)
+        self.borrower.EmpStartDate = self.ui.datePrevEmpStartDate.date().toPyDate()
         self.borrower.occupation = self.ui.lineOccupation.text()
         self.borrower.Employer1 = self.ui.lineEmployer.text()
         self.borrower.addressofemployment = self.ui.lineEmpAddress1.text()
@@ -274,7 +271,7 @@ class BorrowerForm(QMdiSubWindow):
         self.borrower.EmpAddress2 = self.ui.lineEmpAddress3.text()
         self.borrower.EmpAddress3 = self.ui.lineEmpTelNo.text()
         self.borrower.Department = self.ui.lineDepartment.text()
-        self.borrower.EmpStartDate = self.ui.dateEmpStartDate.date().currentDate().toString(Qt.ISODate)
+        self.borrower.EmpStartDate = self.ui.dateEmpStartDate.date().toPyDate()
         self.borrower.SalaryAmount = self.ui.lineEditSalaryAmount.text()
         self.borrower.spouse_employment = self.ui.lineSpouseEmployer.text()
         self.borrower.spouse_emp_address = self.ui.lineSpouseFullAddress.text()
@@ -282,7 +279,7 @@ class BorrowerForm(QMdiSubWindow):
         self.borrower.SpouseTRN = self.ui.lineSpouseTRN.text()
         self.borrower.spouse_emp_tel = self.ui.lineSpouseTelNo.text()
         self.borrower.SpouseAlias = self.ui.lineSpouseAlias.text()
-        self.borrower.SpouseDOB = self.ui.dateSpouseDOB.date().currentDate().toString(Qt.ISODate)
+        self.borrower.SpouseDOB = self.ui.dateSpouseDOB.date().toPyDate()
 
     def validate(self):
         #TODO: Validate each field and Display error

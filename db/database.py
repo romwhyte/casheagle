@@ -1,18 +1,18 @@
 from sqlalchemy import Table,Sequence, MetaData,create_engine, Column, Integer, String 
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from db import tables
 
 class Database:
 
     def __init__(self, *args, **kwargs):
-        engine = create_engine(args[0], echo = True)
+        self.engine = create_engine(args[0], echo=kwargs['echo'])
 
         # generate the database schema
-        tables.Base.metadata.create_all(engine)
+        tables.Base.metadata.create_all(self.engine)
 
         # create a configured "Session" class
-        Session = sessionmaker(bind=engine)
-        self.session = Session()
+        self.Session = scoped_session(sessionmaker(bind=self.engine))
+        self.session = self.Session()
 
     def save(self, *args, **kwargs):
         self.session.add(args[0])
@@ -30,3 +30,8 @@ class Database:
 
     def close(self):
         session.close()
+
+    def reset(self):
+        for tbl in reversed(tables.Base.metadata.sorted_tables):
+            self.engine.execute(tbl.delete())
+

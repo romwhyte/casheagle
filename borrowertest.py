@@ -9,7 +9,7 @@ import unittest
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtTest import QTest
 from PyQt5.QtCore import Qt
-from casheagle.borrower import BorrowerForm
+from ui_action.action.borrower
 from datetime import datetime
 import unittest.mock
 import factory # From "factory_boy"
