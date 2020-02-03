@@ -68,11 +68,9 @@ class Ui_FormBorrower(object):
         self.txtFind = QtWidgets.QLineEdit(self.dockWidgetContents)
         self.txtFind.setObjectName("txtFind")
         self.verticalLayout_8.addWidget(self.txtFind)
-        self.tblBorrowersList = QtWidgets.QTableWidget(self.dockWidgetContents)
-        self.tblBorrowersList.setObjectName("tblBorrowersList")
-        self.tblBorrowersList.setColumnCount(0)
-        self.tblBorrowersList.setRowCount(0)
-        self.verticalLayout_8.addWidget(self.tblBorrowersList)
+        self.tblFindList = QtWidgets.QTableView(self.dockWidgetContents)
+        self.tblFindList.setObjectName("tblFindList")
+        self.verticalLayout_8.addWidget(self.tblFindList)
         self.dockWidgetFindBorrower.setWidget(self.dockWidgetContents)
         self.horizontalLayout_8.addWidget(self.dockWidgetFindBorrower)
         self.verticalLayout_11 = QtWidgets.QVBoxLayout()
@@ -1373,7 +1371,7 @@ class Ui_FormBorrower(object):
         self.actionApplied.setObjectName("actionApplied")
 
         self.retranslateUi(FormBorrower)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(FormBorrower)
 
     def retranslateUi(self, FormBorrower):

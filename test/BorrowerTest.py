@@ -28,8 +28,7 @@ class BorrowerTest(unittest.TestCase):
         """
         self.session = factories.db.session
         factories.db.reset()
-        self.form = borrower.BorrowerForm()
-        self.form.setPers(factories.db)
+        self.form = borrower.BorrowerForm(factories.db)
 
     def setfields(self):
         self.borrower = factories.BorrowerFactory.build()
@@ -83,7 +82,7 @@ class BorrowerTest(unittest.TestCase):
         """[summary]
         """
         pass
-    
+
     def test_something(self):
         """[summary]
         """
@@ -121,7 +120,9 @@ class BorrowerTest(unittest.TestCase):
     def test_FindButton(self):
         """[summary]
         """
+        isvisible = self.form.ui.dockWidgetFindBorrower.isVisible()
         self.form.ui.btnFind.click()
+        self.assertEqual(isvisible,self.form.ui.dockWidgetFindBorrower.isVisible())
 
 
     def test_CancelButton(self):
@@ -132,6 +133,7 @@ class BorrowerTest(unittest.TestCase):
         self.form.ui.btnCancel.click()
         self.assertEqual(self.form.ui.lineEditFirstName.isEnabled(),False)
 
+
     def test_DeleteButton(self):
         """[summary]
         """
@@ -140,13 +142,23 @@ class BorrowerTest(unittest.TestCase):
         self.form.ui.btnSave.click()
         self.form.ui.btnDelete.click()
         borrower = self.session.query(tables.Borrower).all()
-        #After deletion data list should be empty
-        self.assertFalse(borrower)
+
+        self.assertFalse(borrower) #After deletion data list should be empty
 
     def test_SearchButton(self):
         """[summary]
         """
-        pass
+        borrower = factories.BorrowerFactory()
+        self.form.ui.txtFind.setText(borrower.FirstName)
+        self.form.ui.tblFindList.selectRow(0)
+        row = self.form.ui.tblFindList.currentRow()
+
+        testvalue = self.form.ui.tblFindList.item(r,0).text()
+        self.assertEqual(testvalue,borrower.FirstName) #Test if first row was selected 
+
+        testvalue = self.form.ui.lineEditFirstName.text()
+        self.assertEqual(testvalue,borrower.FirstName) # Tested for 
+
 
     def test_validation(self):
         """[summary]
@@ -161,5 +173,13 @@ class BorrowerTest(unittest.TestCase):
         # Remove it, so that the next test gets a new Session()
         factories.db.Session.remove()
 
+
 if __name__=="__main__":
-    unittest.main()
+    suite = unittest.TestSuite()
+    if len(sys.argv) == 1:
+        suite = unittest.TestLoader().loadTestsFromTestCase(BorrowerTest)
+    else:
+        for test_name in sys.argv[1:]:
+            suite.addTest(BorrowerTest(test_name))
+
+    unittest.TextTestRunner(verbosity=2).run(suite)

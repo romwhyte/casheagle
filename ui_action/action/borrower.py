@@ -10,7 +10,7 @@ from PyQt5.QtGui import QIcon, QRegExpValidator
 
 from datetime import datetime,date
 from ui_action.ui.borrower_ui import *
-from db import tables 
+from db import tables, alchemical_model
 import logging
 
 logger = logging.getLogger(__name__)
@@ -19,18 +19,24 @@ class BorrowerForm(QMdiSubWindow):
     #TODO: Add the Garantor, Additional, References fields for CRUD and validation
     #TODO: Add the cancel button
 
-    def __init__(self):
+    def __init__(self, db):
         """Borrowers Sub Windows for the MDI
             Setup for basic actions of the borrowers screen
         Arguments:
             QMdiSubWindow {[type]} -- [description]
         """
         super().__init__()
+        self.db = db
         self.state = False
         self.ui = Ui_FormBorrower()
         self.ui.setupUi(self)
         self.setWindowTitle("Borrower")
+        model = alchemical_model.SqlAlchemyTableModel(
+            self.db.Session, tables.Borrower,[('ID', tables.Borrower.id, 'id', {}), ('FirstName', tables.Borrower.FirstName, 'FirstName', {'editable': True}),
+            ('LastName', tables.Borrower.LastName, 'LastName', {}),
+            ])
         
+
         #setup toolbar buttons
         self.ui.btnApplied.clicked.connect(self.applied)
         self.ui.btnEdit.clicked.connect(self.edit)
@@ -38,13 +44,14 @@ class BorrowerForm(QMdiSubWindow):
         self.ui.btnFind.clicked.connect(self.find)
         self.ui.btnCancel.clicked.connect(self.cancel)
         self.ui.btnDelete.clicked.connect(self.delete)
+        self.ui.tblFindList
 
         #self.validate()
         #self.borrowermodel = QSqlTableModel()
         self.borrower = tables.Borrower()
         self.guarantor = tables.Guarantor(self.borrower)
         self.BorrowerTextfieldState(False)
-
+        
 
     def applied(self):
         """Allow information to be added to the fields
@@ -86,13 +93,13 @@ class BorrowerForm(QMdiSubWindow):
     def find(self):
         """Find the Borrowerer Information
         """
-        self.ui.dockWidgetFindBorrower.setVisible(True)
+        self.ui.dockWidgetFindBorrower.setVisible(not self.ui.dockWidgetFindBorrower.isVisible())
         #borrowerid, ok = QInputDialog.getInt(self, 'Find Borrowers Information','Borrower ID:')
         #self.borrower = self.db.find(tables.Borrower,borrowerid)
         #if not self.borrower:
         #    self.borrower = tables.Borrower()
         #    QMessageBox.information(self,"Not Found","The Borrowers ID was not found", QMessageBox.Ok)
-        
+
         #self.setFieldValue()
         #self.buttonState(False)
 
@@ -286,6 +293,3 @@ class BorrowerForm(QMdiSubWindow):
         reg_ex = QRegExp("[a-z-A-Z_]+")
         name_validator = QRegExpValidator(reg_ex, self.ui.lineEditFirstName)
         self.ui.lineEditFirstName.setValidator(name_validator)
-
-    def setPers(self,db):
-        self.db = db

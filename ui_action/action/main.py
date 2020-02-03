@@ -33,8 +33,7 @@ class MainForm(QMainWindow):
         """
             Open the borrowers Screen via GUI
         """
-        borrowerform = borrower.BorrowerForm()
-        borrowerform.setPers(self.db)
+        borrowerform = borrower.BorrowerForm(self.db)
         self.ui.mdiArea.addSubWindow(borrowerform)
         borrowerform.showMaximized()
 
